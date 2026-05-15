@@ -118,6 +118,17 @@
         <label>Seu e-mail <span class="req">*</span></label>
         <input type="email" id="email" placeholder="seu@email.com" />
       </div>
+
+      <!-- NOVO: campo de analista -->
+      <div class="f">
+        <label>Quem te enviou este briefing? <span class="req">*</span></label>
+        <select id="analista">
+          <option value="" disabled selected>Selecione o analista...</option>
+          <option value="Yuri Siqueira">Yuri Siqueira</option>
+          <option value="Lavínia Saenger">Lavínia Saenger</option>
+          <option value="Emily Klock">Emily Klock</option>
+        </select>
+      </div>
     </div>
 
     <!-- 2. TEMPLATE E DOMÍNIO -->
@@ -383,6 +394,10 @@
     var tipo = gr('tipo_projeto');
     if (!tipo) { showToast('Selecione o tipo de projeto.', 'err'); return; }
 
+    // Validação do analista
+    var analista = document.getElementById('analista').value;
+    if (!analista) { showToast('Selecione o analista que te enviou este briefing.', 'err'); return; }
+
     var camposBase = [
       ['grupo','Nome do grupo'], ['marca','Marca'], ['nome_funcao','Nome e função'],
       ['email','E-mail'], ['dominio','Domínio'], ['ga_id','ID do Google Analytics'],
@@ -407,6 +422,7 @@
     if (!gr('estoque'))   { showToast('Informe se o estoque é unificado ou separado.', 'err'); return; }
 
     var payload = {
+      analista:             analista,
       grupo:                document.getElementById('grupo').value,
       marca:                document.getElementById('marca').value,
       nome_funcao:          document.getElementById('nome_funcao').value,
@@ -458,8 +474,6 @@
       showToast('Erro ao enviar. Verifique a conexão e tente novamente.', 'err');
     });
   }
-
-  // Barra de progresso removida — form de página única
 </script>
 </body>
 </html>
