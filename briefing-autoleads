@@ -314,4 +314,116 @@
 <script>
   const SHEET_URL_AL = 'https://script.google.com/macros/s/SEU_ID_AUTOLEADS/exec'; // trocar pelo ID do script Autoleads
 
-  function togglePor
+  function togglePortal(id, toggleEl) {
+    var chk    = document.getElementById('chk-' + id);
+    var fields = document.getElementById('fields-' + id);
+    // Se clicou no div (não no checkbox diretamente), inverte
+    if (toggleEl && toggleEl.classList.contains('portal-toggle')) {
+      chk.checked = !chk.checked;
+    }
+    fields.classList.toggle('open', chk.checked);
+  }
+
+  function cc(el, id) { document.getElementById(id).textContent = el.value.length + ' / ' + el.maxLength; }
+
+  function gp(id, campo) {
+    var chk = document.getElementById('chk-' + id);
+    if (!chk.checked) return 'N/A';
+    var el = document.getElementById(id + '_' + campo);
+    return el ? el.value.trim() : '';
+  }
+
+  function gpTextarea(id, campo) {
+    var chk = document.getElementById('chk-' + id);
+    if (!chk.checked) return 'N/A';
+    var el = document.getElementById(id + '_' + campo);
+    return el ? el.value.trim() : '';
+  }
+
+  function showToast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.className = 'toast ' + type; t.style.display = 'block';
+    t.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function enviar() {
+    var campos = [
+      ['grupo','Nome do grupo'],['marca','Marca'],['nome_funcao','Nome e função'],
+      ['email','E-mail'],['url_site','URL do site'],['qtd_estoques','Quantidade de estoques'],
+      ['outro_integrador','Integrador atual'],['dms_erp','DMS/ERP'],['emails_integrador','E-mails do integrador']
+    ];
+    for (var i = 0; i < campos.length; i++) {
+      if (!document.getElementById(campos[i][0]).value.trim()) {
+        showToast('Campo obrigatório não preenchido: ' + campos[i][1], 'err'); return;
+      }
+    }
+    var analista = document.getElementById('analista').value;
+    if (!analista) { showToast('Selecione o analista que te enviou este briefing.', 'err'); return; }
+
+    var payload = {
+      data_envio:          new Date().toLocaleString('pt-BR'),
+      analista:            analista,
+      grupo:               document.getElementById('grupo').value,
+      marca:               document.getElementById('marca').value,
+      nome_funcao:         document.getElementById('nome_funcao').value,
+      email:               document.getElementById('email').value,
+      url_site:            document.getElementById('url_site').value,
+      qtd_estoques:        document.getElementById('qtd_estoques').value,
+      outro_integrador:    document.getElementById('outro_integrador').value,
+      dms_erp:             document.getElementById('dms_erp').value,
+      emails_integrador:   document.getElementById('emails_integrador').value,
+      // Portais
+      olx:                 document.getElementById('chk-olx').checked ? 'Sim' : 'N/A',
+      olx_token:           gp('olx','token'),
+      olx_cep:             gp('olx','cep'),
+      olx_telefone:        gp('olx','telefone'),
+      webmotors:           document.getElementById('chk-webmotors').checked ? 'Sim' : 'N/A',
+      webmotors_cnpj:      gp('webmotors','cnpj'),
+      webmotors_email:     gp('webmotors','email'),
+      webmotors_senha:     gp('webmotors','senha'),
+      icarros:             document.getElementById('chk-icarros').checked ? 'Sim' : 'N/A',
+      icarros_login:       gp('icarros','login'),
+      icarros_senha:       gp('icarros','senha'),
+      icarros_dealer:      gpTextarea('icarros','dealer'),
+      meli:                document.getElementById('chk-meli').checked ? 'Sim' : 'N/A',
+      meli_token:          gp('meli','token'),
+      meli_cep:            gp('meli','cep'),
+      meli_telefone:       gp('meli','telefone'),
+      autoline:            document.getElementById('chk-autoline').checked ? 'Sim' : 'N/A',
+      autoline_login:      gp('autoline','login'),
+      autoline_senha:      gp('autoline','senha'),
+      meucarronovo:        document.getElementById('chk-meucarronovo').checked ? 'Sim' : 'N/A',
+      meucarronovo_login:  gp('meucarronovo','login'),
+      meucarronovo_senha:  gp('meucarronovo','senha'),
+      mobiauto:            document.getElementById('chk-mobiauto').checked ? 'Sim' : 'N/A',
+      mobiauto_login:      gp('mobiauto','login'),
+      mobiauto_senha:      gp('mobiauto','senha'),
+      webseminovos:        document.getElementById('chk-webseminovos').checked ? 'Sim' : 'N/A',
+      webseminovos_id:     gp('webseminovos','id'),
+      usadosbr:            document.getElementById('chk-usadosbr').checked ? 'Sim' : 'N/A',
+      usadosbr_login:      gp('usadosbr','login'),
+      outro_portal:        document.getElementById('chk-outro').checked ? document.getElementById('outro_portal').value.trim() : 'N/A'
+    };
+
+    var btn = document.getElementById('submitBtn');
+    btn.textContent = 'Enviando…'; btn.disabled = true;
+
+    fetch(SHEET_URL_AL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function() {
+      document.getElementById('formbody').innerHTML =
+        '<div class="success-screen">'
+        + '<div class="check"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+        + '<h2>Briefing enviado!</h2>'
+        + '<p>Nossa equipe iniciará a configuração e entrará em contato em breve. 🚀</p>'
+        + '</div>';
+    }).catch(function() {
+      btn.textContent = 'Enviar briefing →'; btn.disabled = false;
+      showToast('Erro ao enviar. Verifique a conexão e tente novamente.', 'err');
+    });
+  }
+</script>
+</body>
+</html>
