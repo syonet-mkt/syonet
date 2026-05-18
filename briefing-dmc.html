@@ -10,70 +10,47 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Poppins', sans-serif; background: #f4f5f7; color: #1a1a2e; min-height: 100vh; }
     .page { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 1rem; }
-
     .fheader { background: #0f2340; border-radius: 14px; padding: 1.4rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .logo-area img { height: 36px; width: auto; display: block; }
     .header-right { text-align: right; }
     .header-right h1 { font-size: 15px; font-weight: 600; color: #fff; }
     .header-right p { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
-
-    .step-bar { display: flex; gap: 5px; margin-bottom: 1.5rem; }
-    .sd { height: 3px; border-radius: 2px; flex: 1; background: #ddd; transition: background 0.3s; }
-    .sd.on { background: #c0392b; }
-
     .sec { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; border: 0.5px solid #e0e0e0; }
     .sec-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #c0392b; margin-bottom: 1.2rem; padding-bottom: 8px; border-bottom: 0.5px solid #eee; }
-
     .f { margin-bottom: 1.2rem; }
     .f:last-child { margin-bottom: 0; }
     .f label { display: block; font-size: 13px; font-weight: 500; color: #1a1a2e; margin-bottom: 5px; }
     .f .hint { font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.5; }
-    .f input[type=text], .f input[type=email], .f input[type=url], .f textarea {
+    .f input[type=text], .f input[type=email], .f input[type=url], .f textarea, .f select {
       width: 100%; padding: 9px 11px; font-size: 13px; font-family: 'Poppins', sans-serif;
       border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a2e;
       outline: none; transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .f input:focus, .f textarea:focus { border-color: #0f2340; box-shadow: 0 0 0 3px rgba(15,35,64,0.08); }
+    .f input:focus, .f textarea:focus, .f select:focus { border-color: #0f2340; box-shadow: 0 0 0 3px rgba(15,35,64,0.08); }
     .f textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
-
+    .f select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; padding-right: 32px; }
     .rg { display: flex; flex-direction: column; gap: 8px; }
     .rg label { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; font-weight: 400; cursor: pointer; color: #1a1a2e; line-height: 1.5; }
     .rg input[type=radio] { width: 16px; height: 16px; accent-color: #c0392b; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
-
     .info-box { background: #eef2f8; border-left: 3px solid #0f2340; border-radius: 8px; padding: 10px 13px; font-size: 12px; color: #444; line-height: 1.6; margin-bottom: 1rem; }
     .info-box code { font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 3px; color: #0f2340; }
-
     .conditional { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #eee; }
     .conditional.visible { display: block; }
-
-    .links-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
-    .li { display: flex; gap: 6px; align-items: center; }
-    .li input { flex: 1; }
-    .li button { background: none; border: none; cursor: pointer; color: #aaa; font-size: 18px; line-height: 1; padding: 2px 6px; }
-    .li button:hover { color: #c0392b; }
-    .add-btn { font-size: 12px; color: #0f2340; background: none; border: 1px dashed #aac; border-radius: 8px; padding: 6px 13px; cursor: pointer; font-family: 'Poppins', sans-serif; }
-    .add-btn:hover { background: #eef2f8; }
-
     .req { color: #c0392b; margin-left: 2px; }
     .char-c { font-size: 11px; color: #aaa; text-align: right; margin-top: 3px; }
-
     .security-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #888; background: #f9f9f9; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 10px 14px; margin-bottom: 1.2rem; }
     .security-note svg { flex-shrink: 0; }
-
     .sub-wrap { background: #fff; border-radius: 12px; padding: 1.5rem; border: 0.5px solid #e0e0e0; }
     .sub-btn { width: 100%; padding: 13px; font-size: 14px; font-weight: 600; color: #fff; background: #0f2340; border: none; border-radius: 8px; cursor: pointer; font-family: 'Poppins', sans-serif; letter-spacing: 0.02em; transition: background 0.15s; }
     .sub-btn:hover { background: #1a3560; }
     .sub-btn:disabled { background: #aaa; cursor: not-allowed; }
-
     .toast { display: none; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 1rem; line-height: 1.5; }
     .toast.ok { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
     .toast.err { background: #ffebee; border: 1px solid #ef9a9a; color: #b71c1c; }
-
     .success-screen { text-align: center; padding: 4rem 1rem; background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; }
     .success-screen .check { width: 64px; height: 64px; background: #0f2340; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
     .success-screen h2 { font-size: 20px; font-weight: 600; color: #0f2340; }
     .success-screen p { color: #666; margin-top: 8px; line-height: 1.7; font-size: 14px; }
-
     .footer { text-align: center; font-size: 12px; color: #aaa; padding: 2rem 0 1rem; }
     .footer a { color: #aaa; text-decoration: none; }
   </style>
@@ -90,8 +67,6 @@
       <p>Briefing</p>
     </div>
   </div>
-
-  <div class="step-bar" id="stepbar" style="display:none"></div>
 
   <div id="formbody">
 
@@ -113,6 +88,15 @@
       <div class="f">
         <label>Seu e-mail <span class="req">*</span></label>
         <input type="email" id="email" placeholder="seu@email.com" />
+      </div>
+      <div class="f">
+        <label>Quem te enviou este briefing? <span class="req">*</span></label>
+        <select id="analista">
+          <option value="" disabled selected>Selecione o analista...</option>
+          <option value="Yuri Siqueira">Yuri Siqueira</option>
+          <option value="Lavínia Saenger">Lavínia Saenger</option>
+          <option value="Emily Klock">Emily Klock</option>
+        </select>
       </div>
     </div>
 
@@ -151,7 +135,6 @@
     <!-- 4. GOOGLE ANALYTICS -->
     <div class="sec">
       <div class="sec-title">4. Google Analytics</div>
-
       <div class="info-box">Adicione <code>analytics@syonet.com</code> com permissão de gerenciamento nível <strong>admin</strong>. Caso não possua Google Analytics, podemos criar pela Syonet.</div>
       <div class="f">
         <label>Google Analytics — Admin <span class="req">*</span></label>
@@ -161,8 +144,7 @@
           <label><input type="radio" name="ga_admin" value="Não utilizarei esta integração"> Não utilizarei esta integração</label>
         </div>
       </div>
-
-      <div class="info-box">Adicione <code>seo-syonet@anaytics-syonet.iam.gserviceaccount.com</code> com permissão de gerenciamento nível <strong>leitor</strong>. Caso não possua Google Analytics, podemos criar pela Syonet.</div>
+      <div class="info-box">Adicione <code>seo-syonet@anaytics-syonet.iam.gserviceaccount.com</code> com permissão de gerenciamento nível <strong>leitor</strong>.</div>
       <div class="f">
         <label>ID do Google Analytics — Leitor <span class="req">*</span></label>
         <div class="rg">
@@ -171,7 +153,6 @@
           <label><input type="radio" name="ga_leitor" value="Não utilizarei esta integração"> Não utilizarei esta integração</label>
         </div>
       </div>
-
       <div class="f">
         <label>URL do site <span class="req">*</span></label>
         <p class="hint">Para conectar o Google Analytics, informe a URL do site.</p>
@@ -182,7 +163,6 @@
     <!-- 5. WEBSITE -->
     <div class="sec">
       <div class="sec-title">5. Website</div>
-
       <div class="f">
         <label>Como deseja conectar os formulários do site? <span class="req">*</span></label>
         <div class="rg">
@@ -193,22 +173,17 @@
           <label><input type="radio" name="website_integracao" value="Outro" onchange="toggleWebsite()"> Outro</label>
           <label><input type="radio" name="website_integracao" value="Não utilizarei esta integração" onchange="toggleWebsite()"> Não utilizarei esta integração</label>
         </div>
-
-        <!-- Condicional: dados do servidor -->
         <div class="conditional" id="cond-servidor">
           <label style="margin-bottom:6px;display:block;font-size:13px;font-weight:500">Dados de acesso ao servidor <span class="req">*</span></label>
           <p class="hint">Informe host, porta, usuário e senha.</p>
           <textarea id="servidor_dados" rows="3" placeholder="Host: ftp.seusite.com&#10;Porta: 21&#10;Usuário: usuario&#10;Senha: ****" maxlength="500" oninput="cc(this,'sc1')"></textarea>
           <div class="char-c" id="sc1">0 / 500</div>
         </div>
-
-        <!-- Condicional: outro -->
         <div class="conditional" id="cond-website-outro">
           <label style="margin-bottom:6px;display:block;font-size:13px;font-weight:500">Descreva</label>
           <input type="text" id="website_outro" placeholder="Descreva como deseja integrar…" />
         </div>
       </div>
-
       <div class="f">
         <label>Você usa chatbot?</label>
         <p class="hint">Se sim, descreva qual é a ferramenta.</p>
@@ -220,8 +195,6 @@
           <input type="text" id="chatbot_nome" placeholder="Ex: ManyChat, Leadster, Zendesk…" oninput="toggleChatbot()" />
         </div>
       </div>
-
-      <!-- Condicional: chatbot -->
       <div class="conditional" id="cond-chatbot">
         <div class="f">
           <label>Como deseja conectar seu chatbot? <span class="req">*</span></label>
@@ -232,8 +205,6 @@
             <label><input type="radio" name="chatbot_integracao" value="Não possuo chatbot" onchange="toggleChatbotDoc()"> Não possuo chatbot</label>
             <label><input type="radio" name="chatbot_integracao" value="Outro" onchange="toggleChatbotDoc()"> Outro</label>
           </div>
-
-          <!-- Condicional: documentação chatbot -->
           <div class="conditional" id="cond-chatbot-doc">
             <label style="margin-bottom:6px;display:block;font-size:13px;font-weight:500;margin-top:1rem">URL da documentação de integração</label>
             <p class="hint">Insira a URL ou envie o arquivo no campo ao final do formulário.</p>
@@ -289,7 +260,7 @@
   function toggleChatbotOpcao() {
     var val = document.querySelector('input[name="chatbot_opcao"]:checked');
     var campoNome = document.getElementById('campo-chatbot-nome');
-    var campoInt = document.getElementById('cond-chatbot');
+    var campoInt  = document.getElementById('cond-chatbot');
     if (val && val.value === 'nao') {
       campoNome.style.display = 'none';
       campoInt.className = 'conditional';
@@ -333,10 +304,12 @@
   }
 
   function enviar() {
+    var analista = document.getElementById('analista').value;
+    if (!analista) { showToast('Selecione o analista que te enviou este briefing.', 'err'); return; }
+
     var campos = [
       ['grupo','Nome do grupo'], ['marca','Marca'], ['nome_funcao','Nome e função'],
-      ['email','E-mail'], ['meta_email','E-mail Meta Ads'], ['google_ads_id','ID Google Ads'],
-      ['ga_url','URL do site'], ['acessos_dmc','Acessos à DMC']
+      ['email','E-mail'], ['ga_url','URL do site'], ['acessos_dmc','Acessos à DMC']
     ];
     for (var i = 0; i < campos.length; i++) {
       if (!document.getElementById(campos[i][0]).value.trim()) {
@@ -353,6 +326,8 @@
     }
 
     var payload = {
+      data_envio:          new Date().toLocaleString('pt-BR'),
+      analista:            analista,
       grupo:               document.getElementById('grupo').value,
       marca:               document.getElementById('marca').value,
       nome_funcao:         document.getElementById('nome_funcao').value,
@@ -368,8 +343,7 @@
       chatbot_nome:        document.getElementById('chatbot_nome').value,
       chatbot_integracao:  gr('chatbot_integracao'),
       chatbot_doc_url:     document.getElementById('chatbot_doc_url').value,
-      acessos_dmc:         document.getElementById('acessos_dmc').value,
-      data_envio:          new Date().toLocaleString('pt-BR')
+      acessos_dmc:         document.getElementById('acessos_dmc').value
     };
 
     var btn = document.getElementById('submitBtn');
@@ -384,15 +358,13 @@
         '<div class="success-screen">'
         + '<div class="check"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
         + '<h2>Briefing enviado!</h2>'
-        + '<p>Recebemos tudo certinho.<br>Nossa equipe iniciará o processo e entrará em contato em breve. 🚀</p>'
+        + '<p>Nossa equipe entrará em contato em breve. 🚀</p>'
         + '</div>';
     }).catch(function() {
       btn.textContent = 'Enviar briefing →'; btn.disabled = false;
       showToast('Erro ao enviar. Verifique a conexão e tente novamente.', 'err');
     });
   }
-
-  // Barra de progresso removida — form de página única
 </script>
 </body>
 </html>
