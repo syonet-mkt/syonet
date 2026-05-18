@@ -140,11 +140,6 @@
         <input type="text" id="outro_integrador" placeholder="Ex: iCarros, Dealer, N/A" />
       </div>
       <div class="f">
-        <label>Você utiliza algum DMS/ERP? <span class="req">*</span></label>
-        <p class="hint">Se não utilizar, responda "N/A".</p>
-        <input type="text" id="dms_erp" placeholder="Ex: Autosystem, Procfit, N/A" />
-      </div>
-      <div class="f">
         <label>E-mails que deverão ter acesso ao integrador <span class="req">*</span></label>
         <p class="hint">Informe um por linha.</p>
         <textarea id="emails_integrador" rows="3" placeholder="email1@empresa.com&#10;email2@empresa.com" maxlength="500" oninput="cc(this,'sc1')"></textarea>
@@ -350,8 +345,7 @@
     var campos = [
       ['grupo','Nome do grupo'],['marca','Marca'],['nome_funcao','Nome e função'],
       ['email','E-mail'],['url_site','URL do site'],['qtd_estoques','Quantidade de estoques'],
-      ['outro_integrador','Integrador atual'],['dms_erp','DMS/ERP'],['emails_integrador','E-mails do integrador']
-    ];
+      ['outro_integrador','Integrador atual'],['emails_integrador','E-mails do integrador']    ];
     for (var i = 0; i < campos.length; i++) {
       if (!document.getElementById(campos[i][0]).value.trim()) {
         showToast('Campo obrigatório não preenchido: ' + campos[i][1], 'err'); return;
@@ -370,7 +364,6 @@
       url_site:            document.getElementById('url_site').value,
       qtd_estoques:        document.getElementById('qtd_estoques').value,
       outro_integrador:    document.getElementById('outro_integrador').value,
-      dms_erp:             document.getElementById('dms_erp').value,
       emails_integrador:   document.getElementById('emails_integrador').value,
       // Portais
       olx:                 document.getElementById('chk-olx').checked ? 'Sim' : 'N/A',
