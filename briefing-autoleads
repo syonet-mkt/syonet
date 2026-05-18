@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Briefing Autoleads — Syonet</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #f4f5f7; color: #1a1a2e; min-height: 100vh; }
+    .page { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 1rem; }
+
+    .fheader { background: #0f2340; border-radius: 14px; padding: 1.4rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo-area img { height: 36px; width: auto; display: block; }
+    .header-right { text-align: right; }
+    .header-right h1 { font-size: 15px; font-weight: 600; color: #fff; }
+    .header-right p { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    .sec { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; border: 0.5px solid #e0e0e0; }
+    .sec-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #c0392b; margin-bottom: 1.2rem; padding-bottom: 8px; border-bottom: 0.5px solid #eee; }
+
+    .f { margin-bottom: 1.2rem; }
+    .f:last-child { margin-bottom: 0; }
+    .f label { display: block; font-size: 13px; font-weight: 500; color: #1a1a2e; margin-bottom: 5px; }
+    .f .hint { font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.5; }
+    .f input[type=text], .f input[type=email], .f input[type=url], .f textarea, .f select {
+      width: 100%; padding: 9px 11px; font-size: 13px; font-family: 'Poppins', sans-serif;
+      border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a2e;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .f input:focus, .f textarea:focus, .f select:focus { border-color: #0f2340; box-shadow: 0 0 0 3px rgba(15,35,64,0.08); }
+    .f textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    .f select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; padding-right: 32px; }
+
+    .portal-item { border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+    .portal-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; user-select: none; background: #fff; transition: background 0.15s; }
+    .portal-toggle:hover { background: #f8f9fc; }
+    .portal-toggle input[type=checkbox] { width: 16px; height: 16px; accent-color: #c0392b; cursor: pointer; flex-shrink: 0; }
+    .portal-toggle .ptitle { font-size: 13px; font-weight: 500; color: #1a1a2e; }
+    .portal-toggle .pbadge { margin-left: auto; font-size: 10px; color: #aaa; background: #f4f5f7; border-radius: 4px; padding: 2px 7px; }
+    .portal-fields { display: none; padding: 14px; border-top: 1px solid #eee; background: #fafafa; }
+    .portal-fields.open { display: block; }
+    .portal-fields .f { margin-bottom: 10px; }
+    .portal-fields .f:last-child { margin-bottom: 0; }
+    .portal-fields .f label { font-size: 12px; color: #555; margin-bottom: 4px; }
+
+    .info-box { background: #eef2f8; border-left: 3px solid #0f2340; border-radius: 8px; padding: 10px 13px; font-size: 12px; color: #444; line-height: 1.6; margin-bottom: 10px; }
+    .info-box a { color: #0f2340; font-weight: 600; }
+
+    .req { color: #c0392b; margin-left: 2px; }
+    .char-c { font-size: 11px; color: #aaa; text-align: right; margin-top: 3px; }
+
+    .security-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #888; background: #f9f9f9; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 10px 14px; margin-bottom: 1.2rem; }
+    .security-note svg { flex-shrink: 0; }
+
+    .sub-wrap { background: #fff; border-radius: 12px; padding: 1.5rem; border: 0.5px solid #e0e0e0; }
+    .sub-btn { width: 100%; padding: 13px; font-size: 14px; font-weight: 600; color: #fff; background: #0f2340; border: none; border-radius: 8px; cursor: pointer; font-family: 'Poppins', sans-serif; letter-spacing: 0.02em; transition: background 0.15s; }
+    .sub-btn:hover { background: #1a3560; }
+    .sub-btn:active { transform: scale(0.99); }
+    .sub-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .toast { display: none; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 1rem; line-height: 1.5; }
+    .toast.ok { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
+    .toast.err { background: #ffebee; border: 1px solid #ef9a9a; color: #b71c1c; }
+
+    .success-screen { text-align: center; padding: 4rem 1rem; background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; }
+    .success-screen .check { width: 64px; height: 64px; background: #0f2340; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+    .success-screen h2 { font-size: 20px; font-weight: 600; color: #0f2340; }
+    .success-screen p { color: #666; margin-top: 8px; line-height: 1.7; font-size: 14px; }
+
+    .footer { text-align: center; font-size: 12px; color: #aaa; padding: 2rem 0 1rem; }
+    .footer a { color: #aaa; text-decoration: none; }
+    .footer a:hover { color: #0f2340; }
+
+    .rg { display: flex; flex-direction: column; gap: 8px; }
+    .rg label { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 400; cursor: pointer; color: #1a1a2e; }
+    .rg input[type=radio] { width: 16px; height: 16px; accent-color: #c0392b; cursor: pointer; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="fheader">
+    <div class="logo-area">
+      <img src="https://drive.google.com/thumbnail?id=1POe4xbbZB7q6OHQukdsOIoLJjQKtis6v&sz=w200" alt="Syonet">
+    </div>
+    <div class="header-right">
+      <h1>Autoleads</h1>
+      <p>Briefing</p>
+    </div>
+  </div>
+
+  <div id="formbody">
+
+    <!-- 1. IDENTIFICAÇÃO -->
+    <div class="sec">
+      <div class="sec-title">1. Identificação</div>
+      <div class="f">
+        <label>Nome do grupo <span class="req">*</span></label>
+        <input type="text" id="grupo" placeholder="Ex: Grupo Exemplo" />
+      </div>
+      <div class="f">
+        <label>Marca <span class="req">*</span></label>
+        <input type="text" id="marca" placeholder="Ex: Toyota, Honda, Chevrolet…" />
+      </div>
+      <div class="f">
+        <label>Seu nome e função na empresa <span class="req">*</span></label>
+        <input type="text" id="nome_funcao" placeholder="Ex: João Silva — Gerente de marketing" />
+      </div>
+      <div class="f">
+        <label>Seu e-mail <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="seu@email.com" />
+      </div>
+      <div class="f">
+        <label>Quem te enviou este briefing? <span class="req">*</span></label>
+        <select id="analista">
+          <option value="" disabled selected>Selecione o analista...</option>
+          <option value="Yuri Siqueira">Yuri Siqueira</option>
+          <option value="Lavínia Saenger">Lavínia Saenger</option>
+          <option value="Emily Klock">Emily Klock</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 2. CONFIGURAÇÃO GERAL -->
+    <div class="sec">
+      <div class="sec-title">2. Configuração geral</div>
+      <div class="f">
+        <label>URL do site onde o estoque deve ser inserido <span class="req">*</span></label>
+        <input type="url" id="url_site" placeholder="https://seusite.com.br" />
+      </div>
+      <div class="f">
+        <label>Quantidade de estoques e licenças contratadas do integrador <span class="req">*</span></label>
+        <input type="text" id="qtd_estoques" placeholder="Ex: 2 estoques, 3 licenças" />
+      </div>
+      <div class="f">
+        <label>Você já utiliza algum outro integrador? <span class="req">*</span></label>
+        <p class="hint">Se não utilizar, responda "N/A".</p>
+        <input type="text" id="outro_integrador" placeholder="Ex: iCarros, Dealer, N/A" />
+      </div>
+      <div class="f">
+        <label>Você utiliza algum DMS/ERP? <span class="req">*</span></label>
+        <p class="hint">Se não utilizar, responda "N/A".</p>
+        <input type="text" id="dms_erp" placeholder="Ex: Autosystem, Procfit, N/A" />
+      </div>
+      <div class="f">
+        <label>E-mails que deverão ter acesso ao integrador <span class="req">*</span></label>
+        <p class="hint">Informe um por linha.</p>
+        <textarea id="emails_integrador" rows="3" placeholder="email1@empresa.com&#10;email2@empresa.com" maxlength="500" oninput="cc(this,'sc1')"></textarea>
+        <div class="char-c" id="sc1">0 / 500</div>
+      </div>
+    </div>
+
+    <!-- 3. PORTAIS -->
+    <div class="sec">
+      <div class="sec-title">3. Portais de integração</div>
+      <p style="font-size:12px;color:#666;margin-bottom:1rem;line-height:1.6">Marque os portais que você utiliza. Os campos de cada portal serão exibidos ao marcar. Se não utilizar nenhum portal listado, deixe desmarcado.</p>
+
+      <!-- OLX -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('olx', this)">
+          <input type="checkbox" id="chk-olx" onclick="event.stopPropagation();togglePortal('olx', this.closest('.portal-toggle'))">
+          <span class="ptitle">OLX</span>
+          <span class="pbadge">Token + CEP + Telefone</span>
+        </div>
+        <div class="portal-fields" id="fields-olx">
+          <div class="info-box">Para integrar o portal OLX, acesse o <a href="https://conta.olx.com.br/acesso?returnToToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL2F1dGgub2x4LmNvbS5ici9vYXV0aD9zY29wZT1hdXRvdXBsb2FkJnN0YXRlPS9wcm9maWxlJnJlZGlyZWN0X3VyaT1odHRwOi8vcmVsLmxlYWRmb3JjZS5jb20uYnIvbWFuYWdlci9lbXByZXNhcy9vbHhfcmVxdWVzdCZyZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTYyNTQ0MWE5Njk3ZDUzNjQzMzZhOWRkYzExYjZmN2Y1MjFmNmE5YzciLCJpYXQiOjE3NTM5NjIzMTE4NTh9.HwJb4ccjBGyDOJtnr5dhDDitT81lMiUN-P1hJoHN5Kw" target="_blank">gerador de tokens</a>, faça login e permita o acesso da Syonet. Copie o token gerado e informe abaixo.</div>
+          <div class="f"><label>Token OLX</label><input type="text" id="olx_token" placeholder="Token gerado na plataforma OLX" /></div>
+          <div class="f"><label>CEP</label><input type="text" id="olx_cep" placeholder="00000-000" /></div>
+          <div class="f"><label>Telefone</label><input type="text" id="olx_telefone" placeholder="(00) 99999-0000" /></div>
+        </div>
+      </div>
+
+      <!-- Webmotors -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('webmotors', this)">
+          <input type="checkbox" id="chk-webmotors" onclick="event.stopPropagation();togglePortal('webmotors', this.closest('.portal-toggle'))">
+          <span class="ptitle">Webmotors</span>
+          <span class="pbadge">CNPJ + E-mail + Senha</span>
+        </div>
+        <div class="portal-fields" id="fields-webmotors">
+          <div class="info-box">Precisamos de um acesso webservice do portal Webmotors para realizar o cadastro.</div>
+          <div class="f"><label>CNPJ</label><input type="text" id="webmotors_cnpj" placeholder="00.000.000/0001-00" /></div>
+          <div class="f"><label>E-mail</label><input type="email" id="webmotors_email" placeholder="email@empresa.com" /></div>
+          <div class="f"><label>Senha</label><input type="text" id="webmotors_senha" placeholder="Senha do portal" /></div>
+        </div>
+      </div>
+
+      <!-- iCarros -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('icarros', this)">
+          <input type="checkbox" id="chk-icarros" onclick="event.stopPropagation();togglePortal('icarros', this.closest('.portal-toggle'))">
+          <span class="ptitle">iCarros</span>
+          <span class="pbadge">Login + Senha + Dealer</span>
+        </div>
+        <div class="portal-fields" id="fields-icarros">
+          <div class="f"><label>Login</label><input type="text" id="icarros_login" placeholder="Login do portal" /></div>
+          <div class="f"><label>Senha</label><input type="text" id="icarros_senha" placeholder="Senha do portal" /></div>
+          <div class="f"><label>Dealer por loja</label><textarea id="icarros_dealer" rows="2" placeholder="Loja 1: dealer_id&#10;Loja 2: dealer_id"></textarea></div>
+        </div>
+      </div>
+
+      <!-- Mercado Livre -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('meli', this)">
+          <input type="checkbox" id="chk-meli" onclick="event.stopPropagation();togglePortal('meli', this.closest('.portal-toggle'))">
+          <span class="ptitle">Mercado Livre</span>
+          <span class="pbadge">Token + CEP + Telefone</span>
+        </div>
+        <div class="portal-fields" id="fields-meli">
+          <div class="info-box">Acesse <a href="https://www.mercadolivre.com/jms/mlb/lgz/msl/login/" target="_blank">este link</a>, faça login e aceite o acesso da Syonet aos seus dados. Copie o token gerado e informe abaixo.</div>
+          <div class="f"><label>Token Mercado Livre</label><input type="text" id="meli_token" placeholder="Token gerado" /></div>
+          <div class="f"><label>CEP</label><input type="text" id="meli_cep" placeholder="00000-000" /></div>
+          <div class="f"><label>Telefone</label><input type="text" id="meli_telefone" placeholder="(00) 99999-0000" /></div>
+        </div>
+      </div>
+
+      <!-- Autoline -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('autoline', this)">
+          <input type="checkbox" id="chk-autoline" onclick="event.stopPropagation();togglePortal('autoline', this.closest('.portal-toggle'))">
+          <span class="ptitle">Autoline</span>
+          <span class="pbadge">Login + Senha</span>
+        </div>
+        <div class="portal-fields" id="fields-autoline">
+          <div class="f"><label>Login</label><input type="text" id="autoline_login" placeholder="Login do portal" /></div>
+          <div class="f"><label>Senha</label><input type="text" id="autoline_senha" placeholder="Senha do portal" /></div>
+        </div>
+      </div>
+
+      <!-- Meu Carro Novo -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('meucarronovo', this)">
+          <input type="checkbox" id="chk-meucarronovo" onclick="event.stopPropagation();togglePortal('meucarronovo', this.closest('.portal-toggle'))">
+          <span class="ptitle">Meu Carro Novo</span>
+          <span class="pbadge">Login + Senha</span>
+        </div>
+        <div class="portal-fields" id="fields-meucarronovo">
+          <div class="f"><label>Login</label><input type="text" id="meucarronovo_login" placeholder="Login do portal" /></div>
+          <div class="f"><label>Senha</label><input type="text" id="meucarronovo_senha" placeholder="Senha do portal" /></div>
+        </div>
+      </div>
+
+      <!-- Mobiauto -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('mobiauto', this)">
+          <input type="checkbox" id="chk-mobiauto" onclick="event.stopPropagation();togglePortal('mobiauto', this.closest('.portal-toggle'))">
+          <span class="ptitle">Mobiauto</span>
+          <span class="pbadge">Login + Senha</span>
+        </div>
+        <div class="portal-fields" id="fields-mobiauto">
+          <div class="f"><label>Login</label><input type="text" id="mobiauto_login" placeholder="Login do portal" /></div>
+          <div class="f"><label>Senha</label><input type="text" id="mobiauto_senha" placeholder="Senha do portal" /></div>
+        </div>
+      </div>
+
+      <!-- WebSeminovos -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('webseminovos', this)">
+          <input type="checkbox" id="chk-webseminovos" onclick="event.stopPropagation();togglePortal('webseminovos', this.closest('.portal-toggle'))">
+          <span class="ptitle">WebSeminovos</span>
+          <span class="pbadge">ID de integração</span>
+        </div>
+        <div class="portal-fields" id="fields-webseminovos">
+          <div class="f"><label>ID de integração</label><input type="text" id="webseminovos_id" placeholder="ID fornecido pelo portal" /></div>
+        </div>
+      </div>
+
+      <!-- UsadosBR -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('usadosbr', this)">
+          <input type="checkbox" id="chk-usadosbr" onclick="event.stopPropagation();togglePortal('usadosbr', this.closest('.portal-toggle'))">
+          <span class="ptitle">UsadosBR</span>
+          <span class="pbadge">Login de integração</span>
+        </div>
+        <div class="portal-fields" id="fields-usadosbr">
+          <div class="info-box">Solicite ao portal UsadosBR o login de integração — este não é o mesmo login do portal.</div>
+          <div class="f"><label>Login de integração</label><input type="text" id="usadosbr_login" placeholder="Login de integração (solicitado ao portal)" /></div>
+        </div>
+      </div>
+
+      <!-- Outro portal -->
+      <div class="portal-item">
+        <div class="portal-toggle" onclick="togglePortal('outro', this)">
+          <input type="checkbox" id="chk-outro" onclick="event.stopPropagation();togglePortal('outro', this.closest('.portal-toggle'))">
+          <span class="ptitle">Outro portal</span>
+          <span class="pbadge">Nome + Login + Senha</span>
+        </div>
+        <div class="portal-fields" id="fields-outro">
+          <div class="f"><label>Nome do portal e dados de acesso</label><textarea id="outro_portal" rows="3" placeholder="Ex: Portal XYZ&#10;Login: usuario@empresa.com&#10;Senha: xxxxxxxx" maxlength="400" oninput="cc(this,'sc2')"></textarea><div class="char-c" id="sc2">0 / 400</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-wrap">
+      <div class="security-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4v4c0 3.3 2.5 6.3 6 7 3.5-.7 6-3.7 6-7V4L8 1.5z" stroke="#888" stroke-width="1.2" fill="none" stroke-linejoin="round"/><path d="M5.5 8l1.8 1.8L10.5 6" stroke="#888" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Seus dados são enviados de forma segura e utilizados apenas pela equipe Syonet.
+      </div>
+      <button class="sub-btn" id="submitBtn" onclick="enviar()" type="button">Enviar briefing →</button>
+      <div class="toast" id="toast"></div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Syonet CRM — Todos os direitos reservados &nbsp;•&nbsp; <a href="https://syonet.com" target="_blank">syonet.com</a>
+  </div>
+
+</div>
+
+<script>
+  const SHEET_URL_AL = 'https://script.google.com/macros/s/SEU_ID_AUTOLEADS/exec'; // trocar pelo ID do script Autoleads
+
+  function togglePor
