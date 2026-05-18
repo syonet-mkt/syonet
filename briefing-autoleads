@@ -312,7 +312,7 @@
 </div>
 
 <script>
-  const SHEET_URL_AL = 'https://script.google.com/macros/s/SEU_ID_AUTOLEADS/exec'; // trocar pelo ID do script Autoleads
+  const SHEET_URL_AL = 'https://script.google.com/a/macros/syonet.com/s/AKfycbw1PmPBkBAH2HOeXUv-Xea3a7baHS28FHNoT4sx7783JyGCxbHdsED1laaNzW_O-ysS5g/exec'; // trocar pelo ID do script Autoleads
 
   function togglePortal(id, toggleEl) {
     var chk    = document.getElementById('chk-' + id);
