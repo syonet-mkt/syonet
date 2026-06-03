@@ -412,9 +412,15 @@
       }
     }
 
-    if (tipo === 'Template') {
+   if (tipo === 'Template') {
       if (!document.getElementById('template_url').value.trim()) { showToast('Informe o link do template.', 'err'); return; }
-      if (!document.getElementById('setores').value.trim()) { showToast('Informe os setores do template.', 'err'); return; }
+      if (!document.getElementById('setores').value.trim()) { showToast('Informe os setores a manter.', 'err'); return; }
+    }
+
+    if (tipo === 'Novo') {
+      if (!gr('identidade_visual')) { showToast('Informe se a concessionária possui identidade visual.', 'err'); return; }
+      if (!gr('guide_montadora'))   { showToast('Informe se o site precisa seguir o guide de montadora.', 'err'); return; }
+      if (!document.getElementById('funcionalidades_novo').value.trim()) { showToast('Informe as funcionalidades desejadas (ou escreva "nenhuma").', 'err'); return; }
     }
 
     if (!gr('ga_leitor')) { showToast('Confirme o acesso leitor ao Google Analytics.', 'err'); return; }
