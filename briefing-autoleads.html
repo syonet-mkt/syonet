@@ -154,8 +154,8 @@
 
       <!-- OLX -->
       <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('olx', this)">
-          <input type="checkbox" id="chk-olx" onclick="event.stopPropagation();togglePortal('olx', this.closest('.portal-toggle'))">
+        <div class="portal-toggle" onclick="document.getElementById('chk-olx').click()">
+  <input type="checkbox" id="chk-olx" onclick="event.stopPropagation();togglePortal('olx')">
           <span class="ptitle">OLX</span>
           <span class="pbadge">Token + CEP + Telefone</span>
         </div>
@@ -168,8 +168,8 @@
       </div>
 
       <!-- Webmotors -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('webmotors', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-webmotors').click()">
+  <input type="checkbox" id="chk-webmotors" onclick="event.stopPropagation();togglePortal('webmotors')">
           <input type="checkbox" id="chk-webmotors" onclick="event.stopPropagation();togglePortal('webmotors', this.closest('.portal-toggle'))">
           <span class="ptitle">Webmotors</span>
           <span class="pbadge">CNPJ + E-mail + Senha</span>
@@ -183,8 +183,8 @@
       </div>
 
       <!-- iCarros -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('icarros', this)">
+     <div class="portal-toggle" onclick="document.getElementById('chk-icarros').click()">
+  <input type="checkbox" id="chk-icarros" onclick="event.stopPropagation();togglePortal('icarros')">
           <input type="checkbox" id="chk-icarros" onclick="event.stopPropagation();togglePortal('icarros', this.closest('.portal-toggle'))">
           <span class="ptitle">iCarros</span>
           <span class="pbadge">Login + Senha + Dealer</span>
@@ -197,8 +197,8 @@
       </div>
 
       <!-- Mercado Livre -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('meli', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-meli').click()">
+  <input type="checkbox" id="chk-meli" onclick="event.stopPropagation();togglePortal('meli')">
           <input type="checkbox" id="chk-meli" onclick="event.stopPropagation();togglePortal('meli', this.closest('.portal-toggle'))">
           <span class="ptitle">Mercado Livre</span>
           <span class="pbadge">Token + CEP + Telefone</span>
@@ -212,8 +212,8 @@
       </div>
 
       <!-- Autoline -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('autoline', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-autoline').click()">
+  <input type="checkbox" id="chk-autoline" onclick="event.stopPropagation();togglePortal('autoline')">
           <input type="checkbox" id="chk-autoline" onclick="event.stopPropagation();togglePortal('autoline', this.closest('.portal-toggle'))">
           <span class="ptitle">Autoline</span>
           <span class="pbadge">Login + Senha</span>
@@ -225,8 +225,8 @@
       </div>
 
       <!-- Meu Carro Novo -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('meucarronovo', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-meucarronovo').click()">
+  <input type="checkbox" id="chk-meucarronovo" onclick="event.stopPropagation();togglePortal('meucarronovo')">
           <input type="checkbox" id="chk-meucarronovo" onclick="event.stopPropagation();togglePortal('meucarronovo', this.closest('.portal-toggle'))">
           <span class="ptitle">Meu Carro Novo</span>
           <span class="pbadge">Login + Senha</span>
@@ -238,8 +238,8 @@
       </div>
 
       <!-- Mobiauto -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('mobiauto', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-mobiauto').click()">
+  <input type="checkbox" id="chk-mobiauto" onclick="event.stopPropagation();togglePortal('mobiauto')">
           <input type="checkbox" id="chk-mobiauto" onclick="event.stopPropagation();togglePortal('mobiauto', this.closest('.portal-toggle'))">
           <span class="ptitle">Mobiauto</span>
           <span class="pbadge">Login + Senha</span>
@@ -251,8 +251,8 @@
       </div>
 
       <!-- WebSeminovos -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('webseminovos', this)">
+     <div class="portal-toggle" onclick="document.getElementById('chk-webseminovos').click()">
+  <input type="checkbox" id="chk-webseminovos" onclick="event.stopPropagation();togglePortal('webseminovos')">
           <input type="checkbox" id="chk-webseminovos" onclick="event.stopPropagation();togglePortal('webseminovos', this.closest('.portal-toggle'))">
           <span class="ptitle">WebSeminovos</span>
           <span class="pbadge">ID de integração</span>
@@ -263,8 +263,8 @@
       </div>
 
       <!-- UsadosBR -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('usadosbr', this)">
+      <div class="portal-toggle" onclick="document.getElementById('chk-usadosbr').click()">
+  <input type="checkbox" id="chk-usadosbr" onclick="event.stopPropagation();togglePortal('usadosbr')">
           <input type="checkbox" id="chk-usadosbr" onclick="event.stopPropagation();togglePortal('usadosbr', this.closest('.portal-toggle'))">
           <span class="ptitle">UsadosBR</span>
           <span class="pbadge">Login de integração</span>
@@ -276,9 +276,8 @@
       </div>
 
       <!-- Outro portal -->
-      <div class="portal-item">
-        <div class="portal-toggle" onclick="togglePortal('outro', this)">
-          <input type="checkbox" id="chk-outro" onclick="event.stopPropagation();togglePortal('outro', this.closest('.portal-toggle'))">
+        <div class="portal-toggle" onclick="document.getElementById('chk-outro').click()">
+          <input type="checkbox" id="chk-outro" onclick="event.stopPropagation();togglePortal('outro')">
           <span class="ptitle">Outro portal</span>
           <span class="pbadge">Nome + Login + Senha</span>
         </div>
@@ -309,15 +308,11 @@
 <script>
   const SHEET_URL_AL = 'https://script.google.com/a/macros/syonet.com/s/AKfycbw1PmPBkBAH2HOeXUv-Xea3a7baHS28FHNoT4sx7783JyGCxbHdsED1laaNzW_O-ysS5g/exec'; // trocar pelo ID do script Autoleads
 
-  function togglePortal(id, toggleEl) {
-    var chk    = document.getElementById('chk-' + id);
-    var fields = document.getElementById('fields-' + id);
-    // Se clicou no div (não no checkbox diretamente), inverte
-    if (toggleEl && toggleEl.classList.contains('portal-toggle')) {
-      chk.checked = !chk.checked;
-    }
-    fields.classList.toggle('open', chk.checked);
-  }
+  function togglePortal(id) {
+  var chk    = document.getElementById('chk-' + id);
+  var fields = document.getElementById('fields-' + id);
+  fields.classList.toggle('open', chk.checked);
+}
 
   function cc(el, id) { document.getElementById(id).textContent = el.value.length + ' / ' + el.maxLength; }
 
