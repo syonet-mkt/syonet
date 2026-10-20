@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mídia | Briefing — Syonet</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #f4f5f7; color: #1a1a2e; min-height: 100vh; }
+    .page { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 1rem; }
+    .fheader { background: #0f2340; border-radius: 14px; padding: 1.4rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo-area img { height: 36px; width: auto; display: block; }
+    .header-right { text-align: right; }
+    .header-right h1 { font-size: 15px; font-weight: 600; color: #fff; }
+    .header-right p { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .sec { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; border: 0.5px solid #e0e0e0; }
+    .sec-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #c0392b; margin-bottom: 1.2rem; padding-bottom: 8px; border-bottom: 0.5px solid #eee; }
+    .f { margin-bottom: 1.2rem; }
+    .f:last-child { margin-bottom: 0; }
+    .f > label { display: block; font-size: 13px; font-weight: 500; color: #1a1a2e; margin-bottom: 5px; }
+    .f .hint { font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.5; }
+    .f input[type=text], .f input[type=email], .f textarea {
+      width: 100%; padding: 9px 11px; font-size: 13px; font-family: 'Poppins', sans-serif;
+      border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a2e;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .f input:focus, .f textarea:focus { border-color: #0f2340; box-shadow: 0 0 0 3px rgba(15,35,64,0.08); }
+    .f textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    .f .invalid { border-color: #c0392b !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.08) !important; }
+
+    .rg { display: flex; flex-direction: column; gap: 8px; }
+    .rg label { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; font-weight: 400; cursor: pointer; color: #1a1a2e; line-height: 1.5; }
+    .rg input[type=radio], .rg input[type=checkbox] { width: 16px; height: 16px; accent-color: #c0392b; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+
+    /* Setores em duas colunas no desktop */
+    .cg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+    @media (max-width: 480px) { .cg { grid-template-columns: 1fr; } }
+
+    .conditional { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #eee; }
+    .conditional.visible { display: block; }
+    .conditional > label { margin-bottom: 6px; display: block; font-size: 13px; font-weight: 500; }
+    .req { color: #c0392b; margin-left: 2px; }
+    .char-c { font-size: 11px; color: #aaa; text-align: right; margin-top: 3px; }
+
+    .security-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #888; background: #f9f9f9; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 10px 14px; margin-bottom: 1.2rem; }
+    .security-note svg { flex-shrink: 0; }
+    .sub-wrap { background: #fff; border-radius: 12px; padding: 1.5rem; border: 0.5px solid #e0e0e0; }
+    .sub-btn { width: 100%; padding: 13px; font-size: 14px; font-weight: 600; color: #fff; background: #0f2340; border: none; border-radius: 8px; cursor: pointer; font-family: 'Poppins', sans-serif; letter-spacing: 0.02em; transition: background 0.15s; }
+    .sub-btn:hover { background: #1a3560; }
+    .sub-btn:focus-visible { outline: 3px solid rgba(192,57,43,0.4); outline-offset: 2px; }
+    .sub-btn:disabled { background: #aaa; cursor: not-allowed; }
+    .toast { display: none; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 1rem; line-height: 1.5; }
+    .toast.ok { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
+    .toast.err { background: #ffebee; border: 1px solid #ef9a9a; color: #b71c1c; }
+    .success-screen { text-align: center; padding: 4rem 1rem; background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; }
+    .success-screen .check { width: 64px; height: 64px; background: #0f2340; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+    .success-screen h2 { font-size: 20px; font-weight: 600; color: #0f2340; }
+    .success-screen p { color: #666; margin-top: 8px; line-height: 1.7; font-size: 14px; }
+    .footer { text-align: center; font-size: 12px; color: #aaa; padding: 2rem 0 1rem; }
+    .footer a { color: #aaa; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="fheader">
+    <div class="logo-area">
+      <img src="https://drive.google.com/thumbnail?id=1POe4xbbZB7q6OHQukdsOIoLJjQKtis6v&sz=w200" alt="Syonet">
+    </div>
+    <div class="header-right">
+      <h1>Mídia</h1>
+      <p>Briefing</p>
+    </div>
+  </div>
+
+  <div id="formbody">
+
+    <!-- 1. QUEM ESTÁ PREENCHENDO -->
+    <div class="sec">
+      <div class="sec-title">1. Quem está preenchendo</div>
+      <div class="f">
+        <label for="preenchedor_nome">Seu nome <span class="req">*</span></label>
+        <input type="text" id="preenchedor_nome" placeholder="Ex: João Silva" autocomplete="name" />
+      </div>
+      <div class="f">
+        <label for="preenchedor_cargo">Seu cargo <span class="req">*</span></label>
+        <input type="text" id="preenchedor_cargo" placeholder="Ex: Gerente de marketing" autocomplete="organization-title" />
+      </div>
+      <div class="f">
+        <label for="preenchedor_email">Seu e-mail <span class="req">*</span></label>
+        <input type="email" id="preenchedor_email" placeholder="seu@email.com" autocomplete="email" />
+      </div>
+    </div>
+
+    <!-- 2. MARCA E LOJAS -->
+    <div class="sec">
+      <div class="sec-title">2. Marca e lojas</div>
+      <div class="f">
+        <label for="marca">Marca <span class="req">*</span></label>
+        <input type="text" id="marca" placeholder="Ex: Toyota, Honda, Chevrolet…" />
+      </div>
+      <div class="f">
+        <label for="lojas">Lojas que farão parte da campanha <span class="req">*</span></label>
+        <p class="hint">Uma loja por linha.</p>
+        <textarea id="lojas" rows="4" placeholder="Loja Centro&#10;Loja Zona Sul&#10;Loja Seminovos" maxlength="1000" oninput="cc(this,'cc-lojas')"></textarea>
+        <div class="char-c" id="cc-lojas">0 / 1000</div>
+      </div>
+    </div>
+
+    <!-- 3. SETORES -->
+    <div class="sec">
+      <div class="sec-title">3. Setores com campanha</div>
+      <div class="f">
+        <label>Quais setores terão campanha? <span class="req">*</span></label>
+        <p class="hint">Marque todos que se aplicam.</p>
+        <div class="rg cg">
+          <label><input type="checkbox" name="setores" value="Novos"> Novos</label>
+          <label><input type="checkbox" name="setores" value="Seminovos"> Seminovos</label>
+          <label><input type="checkbox" name="setores" value="Venda Direta"> Venda direta</label>
+          <label><input type="checkbox" name="setores" value="Pós-venda"> Pós-venda</label>
+          <label><input type="checkbox" name="setores" value="Peças"> Peças</label>
+          <label><input type="checkbox" name="setores" value="Consórcio"> Consórcio</label>
+          <label><input type="checkbox" name="setores" value="Outro" onchange="toggleSetorOutro()"> Outro</label>
+        </div>
+        <div class="conditional" id="cond-setor-outro">
+          <label for="setores_outro">Qual outro setor? <span class="req">*</span></label>
+          <input type="text" id="setores_outro" placeholder="Ex: Blindagem, Locação…" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CRM -->
+    <div class="sec">
+      <div class="sec-title">4. CRM</div>
+      <div class="f">
+        <label>Qual CRM vocês utilizam? <span class="req">*</span></label>
+        <div class="rg">
+          <label><input type="radio" name="crm" value="Syonet" onchange="toggleCrmOutro()"> Syonet</label>
+          <label><input type="radio" name="crm" value="Outro" onchange="toggleCrmOutro()"> Outro</label>
+        </div>
+        <div class="conditional" id="cond-crm-outro">
+          <label for="crm_outro">Qual CRM? <span class="req">*</span></label>
+          <input type="text" id="crm_outro" placeholder="Nome do CRM" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. ACESSOS -->
+    <div class="sec">
+      <div class="sec-title">5. Acessos à plataforma</div>
+      <div class="f">
+        <label for="acessos_plataforma">Quem deve ter acesso à plataforma? <span class="req">*</span></label>
+        <p class="hint">Liste os e-mails, um por linha.</p>
+        <textarea id="acessos_plataforma" rows="4" placeholder="joao@empresa.com&#10;maria@empresa.com" maxlength="600" oninput="cc(this,'cc-acessos')"></textarea>
+        <div class="char-c" id="cc-acessos">0 / 600</div>
+      </div>
+    </div>
+
+    <div class="sub-wrap">
+      <div class="security-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4v4c0 3.3 2.5 6.3 6 7 3.5-.7 6-3.7 6-7V4L8 1.5z" stroke="#888" stroke-width="1.2" fill="none" stroke-linejoin="round"/><path d="M5.5 8l1.8 1.8L10.5 6" stroke="#888" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Seus dados são enviados de forma segura e utilizados apenas pela equipe Syonet.
+      </div>
+      <button class="sub-btn" id="submitBtn" onclick="enviar()" type="button">Enviar briefing</button>
+      <div class="toast" id="toast" role="alert"></div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Syonet CRM — Todos os direitos reservados &nbsp;•&nbsp; <a href="https://syonet.com" target="_blank" rel="noopener">syonet.com</a>
+  </div>
+
+</div>
+
+<script>
+  // URL da implantação do Apps Script de MÍDIA (não é a mesma do DMC)
+  const SHEET_URL = 'COLE_AQUI_A_URL_DA_IMPLANTACAO_MIDIA';
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function cc(el, id) { document.getElementById(id).textContent = el.value.length + ' / ' + el.maxLength; }
+
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function gr(name) { var c = document.querySelector('input[name="' + name + '"]:checked'); return c ? c.value : ''; }
+  function grAll(name) {
+    return Array.prototype.map.call(document.querySelectorAll('input[name="' + name + '"]:checked'), function (c) { return c.value; });
+  }
+  function linhas(texto) {
+    return texto.split(/\n|;|,/).map(function (l) { return l.trim(); }).filter(function (l) { return l; });
+  }
+
+  function toggleSetorOutro() {
+    var marcado = grAll('setores').indexOf('Outro') !== -1;
+    document.getElementById('cond-setor-outro').className = 'conditional' + (marcado ? ' visible' : '');
+    if (!marcado) document.getElementById('setores_outro').value = '';
+  }
+
+  function toggleCrmOutro() {
+    var outro = gr('crm') === 'Outro';
+    document.getElementById('cond-crm-outro').className = 'conditional' + (outro ? ' visible' : '');
+    if (!outro) document.getElementById('crm_outro').value = '';
+  }
+
+  function showToast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.className = 'toast ' + type; t.style.display = 'block';
+    t.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Marca o campo com erro, foca nele e mostra a mensagem
+  function erro(id, msg) {
+    document.querySelectorAll('.invalid').forEach(function (el) { el.classList.remove('invalid'); });
+    if (id) {
+      var el = document.getElementById(id);
+      el.classList.add('invalid');
+      el.focus();
+      el.addEventListener('input', function () { el.classList.remove('invalid'); }, { once: true });
+    }
+    showToast(msg, 'err');
+    return false;
+  }
+
+  function validar() {
+    if (!val('preenchedor_nome'))  return erro('preenchedor_nome', 'Informe seu nome.');
+    if (!val('preenchedor_cargo')) return erro('preenchedor_cargo', 'Informe seu cargo.');
+    if (!EMAIL_RE.test(val('preenchedor_email'))) return erro('preenchedor_email', 'Informe um e-mail válido.');
+    if (!val('marca')) return erro('marca', 'Informe a marca.');
+    if (!linhas(val('lojas')).length) return erro('lojas', 'Informe pelo menos uma loja.');
+
+    var setores = grAll('setores');
+    if (!setores.length) return erro(null, 'Marque pelo menos um setor com campanha.');
+    if (setores.indexOf('Outro') !== -1 && !val('setores_outro')) return erro('setores_outro', 'Informe qual é o outro setor.');
+
+    var crm = gr('crm');
+    if (!crm) return erro(null, 'Selecione qual CRM vocês utilizam.');
+    if (crm === 'Outro' && !val('crm_outro')) return erro('crm_outro', 'Informe qual CRM vocês utilizam.');
+
+    var acessos = linhas(val('acessos_plataforma'));
+    if (!acessos.length) return erro('acessos_plataforma', 'Informe pelo menos um e-mail com acesso à plataforma.');
+    var invalidos = acessos.filter(function (e) { return !EMAIL_RE.test(e); });
+    if (invalidos.length) return erro('acessos_plataforma', 'E-mail inválido em acessos: ' + invalidos.join(', '));
+
+    return true;
+  }
+
+  function enviar() {
+    if (!validar()) return;
+
+    var setores = grAll('setores');
+    var crm = gr('crm');
+
+    var payload = {
+      preenchedor_nome:   val('preenchedor_nome'),
+      preenchedor_cargo:  val('preenchedor_cargo'),
+      preenchedor_email:  val('preenchedor_email'),
+      marca:              val('marca'),
+      lojas:              linhas(val('lojas')).join('\n'),
+      setores:            setores,
+      setores_outro:      setores.indexOf('Outro') !== -1 ? val('setores_outro') : '',
+      crm:                crm,
+      crm_outro:          crm === 'Outro' ? val('crm_outro') : '',
+      acessos_plataforma: linhas(val('acessos_plataforma')).join('\n')
+      // data_envio é preenchida no servidor (fuso de São Paulo)
+    };
+
+    var btn = document.getElementById('submitBtn');
+    btn.textContent = 'Enviando…'; btn.disabled = true;
+
+    fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).then(function () {
+      document.getElementById('formbody').innerHTML =
+        '<div class="success-screen">'
+        + '<div class="check"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+        + '<h2>Briefing enviado!</h2>'
+        + '<p>Nossa equipe entrará em contato em breve. 🚀</p>'
+        + '</div>';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }).catch(function () {
+      btn.textContent = 'Enviar briefing'; btn.disabled = false;
+      showToast('Erro ao enviar. Verifique a conexão e tente novamente.', 'err');
+    });
+  }
+</script>
+</body>
+</html>
