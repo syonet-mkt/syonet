@@ -96,7 +96,11 @@
 
     <!-- 2. MARCA E LOJAS -->
     <div class="sec">
-      <div class="sec-title">2. Marca e lojas</div>
+      <div class="sec-title">2. Grupo, marca e lojas</div>
+      <div class="f">
+        <label for="grupo">Nome do grupo <span class="req">*</span></label>
+        <input type="text" id="grupo" placeholder="Ex: Grupo Exemplo" />
+      </div>
       <div class="f">
         <label for="marca">Marca <span class="req">*</span></label>
         <input type="text" id="marca" placeholder="Ex: Toyota, Honda, Chevrolet…" />
@@ -177,7 +181,7 @@
 
 <script>
   // URL da implantação do Apps Script de MÍDIA (não é a mesma do DMC)
-  const SHEET_URL = 'https://script.google.com/a/macros/syonet.com/s/AKfycbwkyAZSm5eHLsL9IYUcLpfjGJVApzdWTSdEx62I6zxSS6gboDnPYM8ezJdttedii5nrWg/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwkyAZSm5eHLsL9IYUcLpfjGJVApzdWTSdEx62I6zxSS6gboDnPYM8ezJdttedii5nrWg/exec';
 
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -227,6 +231,7 @@
     if (!val('preenchedor_nome'))  return erro('preenchedor_nome', 'Informe seu nome.');
     if (!val('preenchedor_cargo')) return erro('preenchedor_cargo', 'Informe seu cargo.');
     if (!EMAIL_RE.test(val('preenchedor_email'))) return erro('preenchedor_email', 'Informe um e-mail válido.');
+    if (!val('grupo')) return erro('grupo', 'Informe o nome do grupo.');
     if (!val('marca')) return erro('marca', 'Informe a marca.');
     if (!linhas(val('lojas')).length) return erro('lojas', 'Informe pelo menos uma loja.');
 
@@ -256,6 +261,7 @@
       preenchedor_nome:   val('preenchedor_nome'),
       preenchedor_cargo:  val('preenchedor_cargo'),
       preenchedor_email:  val('preenchedor_email'),
+      grupo:              val('grupo'),
       marca:              val('marca'),
       lojas:              linhas(val('lojas')).join('\n'),
       setores:            setores,
